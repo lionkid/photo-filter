@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo Filter</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Photo Filter</h1>
+      <p class="subtitle">Find photos of a specific person using face recognition</p>
+    </header>
+
+    <!-- Step indicator -->
+    <nav class="steps" id="step-nav">
+      <div class="step active" data-step="1"><span class="step-num">1</span> Photo Library</div>
+      <div class="step" data-step="2"><span class="step-num">2</span> Target Person</div>
+      <div class="step" data-step="3"><span class="step-num">3</span> Settings</div>
+      <div class="step" data-step="4"><span class="step-num">4</span> Progress</div>
+    </nav>
+
+    <main>
+      <!-- ── Step 1: Photo Library ── -->
+      <section class="card" id="step-1">
+        <h2>Photo Library</h2>
+        <p>Enter the path to your photo library folder.</p>
+        <div class="field">
+          <label for="source-dir">Library path</label>
+          <input type="text" id="source-dir" placeholder="/Users/you/Pictures/Library" spellcheck="false" />
+        </div>
+        <div id="source-status" class="status-line"></div>
+        <div class="actions">
+          <button id="btn-next-1" class="btn-primary" disabled>Next</button>
+        </div>
+      </section>
+
+      <!-- ── Step 2: Target Person ── -->
+      <section class="card hidden" id="step-2">
+        <h2>Target Person</h2>
+        <p>Enter a folder that contains only photos of the person you want to find.</p>
+        <div class="field">
+          <label for="ref-dir">Reference photos path</label>
+          <input type="text" id="ref-dir" placeholder="/Users/you/Pictures/Target" spellcheck="false" />
+        </div>
+        <div id="ref-status" class="status-line"></div>
+        <div id="thumbnail-grid" class="thumbnail-grid hidden"></div>
+        <div class="actions">
+          <button class="btn-secondary" id="btn-back-2">Back</button>
+          <button id="btn-next-2" class="btn-primary" disabled>Confirm</button>
+        </div>
+      </section>
+
+      <!-- ── Step 3: Settings ── -->
+      <section class="card hidden" id="step-3">
+        <h2>Output &amp; Settings</h2>
+        <div class="field">
+          <label for="output-dir">Output folder path</label>
+          <input type="text" id="output-dir" placeholder="/Users/you/Pictures/Filtered" spellcheck="false" />
+        </div>
+        <div id="output-status" class="status-line"></div>
+        <div class="field">
+          <label for="threshold">
+            Similarity threshold: <strong id="threshold-val">0.55</strong>
+            <span class="hint"> — lower = more results, higher = fewer but more accurate</span>
+          </label>
+          <input type="range" id="threshold" min="0.30" max="0.70" step="0.01" value="0.55" />
+          <div class="range-labels"><span>0.30 (high recall)</span><span>0.70 (high precision)</span></div>
+        </div>
+        <div class="actions">
+          <button class="btn-secondary" id="btn-back-3">Back</button>
+          <button id="btn-start" class="btn-primary" disabled>Start Filtering</button>
+        </div>
+      </section>
+
+      <!-- ── Step 4: Progress ── -->
+      <section class="card hidden" id="step-4">
+        <h2>Processing</h2>
+        <div id="phase-label" class="phase-label">Initializing…</div>
+        <div class="progress-wrap">
+          <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+        </div>
+        <div id="progress-stats" class="progress-stats"></div>
+        <div id="complete-block" class="hidden">
+          <p class="complete-msg" id="complete-msg"></p>
+          <div class="actions">
+            <button class="btn-secondary" id="btn-open-folder">Open Output Folder</button>
+            <button class="btn-primary" id="btn-restart">Start Over</button>
+          </div>
+        </div>
+        <div id="cancel-block">
+          <button class="btn-danger" id="btn-cancel">Cancel</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+flask>=3.0
+opencv-python-headless>=4.9
+insightface>=0.7
+onnxruntime>=1.17
+numpy>=1.24
+pillow>=10.0
+pillow-heif>=0.16
